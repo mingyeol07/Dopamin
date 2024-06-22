@@ -6,6 +6,7 @@ public class InfiniteManager : MonoBehaviour
     public static InfiniteManager Instance;
 
     public bool isGameClear { get; private set; }
+    [SerializeField] private GameObject pnl_clear;
 
     [SerializeField] private Image timer;
     [SerializeField] private float maxTime;
@@ -53,6 +54,7 @@ public class InfiniteManager : MonoBehaviour
 
     private void GameOver()
     {
-
+        isGameClear = true;
+        pnl_clear.SetActive(true);
     }
 }
