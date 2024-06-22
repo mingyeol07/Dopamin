@@ -13,13 +13,11 @@ public class Score : MonoBehaviour
     public TextMeshPro lowerEndingText;
     public static int score;
 
-    [SerializeField] private Button btn_returnMain;
-    [SerializeField] private Button btn_retry;
+    [SerializeField] private GameObject btn_returnMain;
+    [SerializeField] private GameObject btn_retry;
 
     private void Awake()
     {
-        //btn_retry.onClick.AddListener(() => SceneManager.LoadScene("StoryMode"));
-        //btn_returnMain.onClick.AddListener(() => SceneManager.LoadScene("Title"));
     }
 
     // Update is called once per frame
