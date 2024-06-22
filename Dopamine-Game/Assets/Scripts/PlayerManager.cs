@@ -8,11 +8,16 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
+    [Header("Life")]
+    [SerializeField] private GameObject[] lifeObjects;
+    private int playerLife;
+    
+    [Header("Timer")]
     [SerializeField] private GameObject blueTimerPrefab;
     [SerializeField] private GameObject yellowTimerPrefab;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private int maxTime;
     [SerializeField] private float curTime;
-    [SerializeField] private Canvas canvas;
     [SerializeField] private float timerSpeed;
     private Image mainTimer;
 
@@ -23,6 +28,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        playerLife = lifeObjects.Length;
         SetYellowTimer();
     }
 
@@ -38,7 +44,21 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerDamaged()
     {
+        LifeDown();
         StartCoroutine(Damaged());
+    }
+
+    private void LifeDown()
+    {
+        playerLife--;
+        if(playerLife < 0 )
+        {
+
+        }
+        else
+        {
+            lifeObjects[playerLife].SetActive(false);
+        }
     }
 
     private IEnumerator Damaged()
