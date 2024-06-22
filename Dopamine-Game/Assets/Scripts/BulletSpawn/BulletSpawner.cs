@@ -10,10 +10,11 @@ public class BulletSpawner : MonoBehaviour
     public GameObject magneticBg;
     public AudioClip magneticSound;
     public GameObject magneticLaser;
+    public float magneticLaserCool;
+    public float slowMagneticLaserCool;
 
     private void Awake()
     {
-        StartCoroutine(MagneticPattern());
     }
 
     private void PlayPattern(bool first)
@@ -34,18 +35,52 @@ public class BulletSpawner : MonoBehaviour
 
     private IEnumerator MagneticPattern()
     {
-        yield return new WaitForSeconds(3);
-
         //Instantiate(magneticBg, Vector3.zero, Quaternion.identity);
-        //SoundManager.Instance.PlaySFX(magneticSound);
+        SoundManager.Instance.PlaySFX(magneticSound);
 
-        Coroutine c = StartCoroutine(MagneticPlayer());   
+        yield return new WaitForSeconds(2);
+
+        for (int i=0; i<8; i++)
+        {
+            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            GameObject laser = Instantiate(magneticLaser, spawnPos, Quaternion.identity);
+            laser.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
+            yield return new WaitForSeconds(magneticLaserCool);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        Coroutine c = StartCoroutine(MagneticPlayer());
         yield return new WaitForSeconds(1.25f);
         StopCoroutine(c);
 
+        for (int i = 0; i < 8; i++)
+        {
+            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            GameObject laser = Instantiate(magneticLaser, spawnPos, Quaternion.identity);
+            laser.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
+            yield return new WaitForSeconds(magneticLaserCool);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        Coroutine c2 = StartCoroutine(MagneticPlayer());
+        yield return new WaitForSeconds(1.5f);
+        StopCoroutine(c2);
+
+        for (int i = 0; i < 4; i++)
+        {
+            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            GameObject laser = Instantiate(magneticLaser, spawnPos, Quaternion.identity);
+            laser.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
+            yield return new WaitForSeconds(slowMagneticLaserCool);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        Coroutine c3 = StartCoroutine(MagneticPlayer());
+        yield return new WaitForSeconds(0.5f);
+        StopCoroutine(c3);
+
         yield break;
     }
-
     private IEnumerator MagneticPlayer()
     {
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;

@@ -20,6 +20,10 @@ public class MagneticLaser : MonoBehaviour
         laserIndicator.SetActive(false);
         laser.SetActive(true);
 
+        yield return new WaitForSeconds(0.25f);
+
+        Destroy(gameObject);
+
         yield break;
     }
 }
