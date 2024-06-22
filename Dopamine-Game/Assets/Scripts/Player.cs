@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    [SerializeField] private Transform cam;
     private Rigidbody2D rigid;
     private Animator animator;
 
@@ -46,5 +48,6 @@ public class Player : MonoBehaviour
     private void Damaged()
     {
         animator.SetTrigger("Damaged");
+        cam.GetComponent<CameraShake>().StartShake(0.3f);
     }
 }
