@@ -1452,7 +1452,7 @@ MonoBehaviour:
   blueTimerPrefab: {fileID: 8261570238432335838, guid: ad1ca909b6fbc8b43a9ec207afbba2e4, type: 3}
   yellowTimerPrefab: {fileID: 8261570238432335838, guid: 4b383dc577ce6ad46a984e5ff84a7703, type: 3}
   canvas: {fileID: 2008245599}
-  maxTime: 10
+  maxTime: 60
   curTime: 0
   timerSpeed: 0
   txt_focusTime: {fileID: 127654445}
