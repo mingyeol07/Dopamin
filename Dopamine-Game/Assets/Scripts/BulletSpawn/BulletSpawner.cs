@@ -18,9 +18,14 @@ public class BulletSpawner : MonoBehaviour
     public GameObject pedroRacoon;
     public AudioClip pedroSound;
 
+    [Header("Tanghuru")]
+    public GameObject tanghuruGun1;
+    public GameObject tanghuruGun2;
+    public GameObject tanghuruGun3;
+    public AudioClip tanghuruSound;
+
     private void Start()
     {
-        StartCoroutine(PedroPattern());
     }
 
     private void PlayPattern(bool first)
@@ -112,6 +117,47 @@ public class BulletSpawner : MonoBehaviour
             pedroBg.transform.localScale = new Vector2(pedroBg.transform.localScale.x - Time.deltaTime * 4, pedroBg.transform.localScale.y - Time.deltaTime * 4);
             yield return null;
         }
+
+        yield break;
+    }
+
+    private IEnumerator TanghuruPattern()
+    {
+        SoundManager.Instance.PlaySFX(tanghuruSound);
+
+        yield return new WaitForSeconds(4f);
+
+        Vector2 tg1Pos = new Vector2(-7, Random.Range(-3.5f, 3.5f));
+        Instantiate(tanghuruGun1, tg1Pos, Quaternion.identity);
+        yield return new WaitForSeconds(0.3f);
+        Vector2 tg2Pos = new Vector2(7, Random.Range(-3.5f, 3.5f));
+        Instantiate(tanghuruGun2, tg2Pos, Quaternion.identity);
+
+        yield return new WaitForSeconds(1.7f);
+
+        tg1Pos = new Vector2(-7, Random.Range(-3.5f, 3.5f));
+        Instantiate(tanghuruGun1, tg1Pos, Quaternion.identity);
+        yield return new WaitForSeconds(0.3f);
+        tg2Pos = new Vector2(7, Random.Range(-3.5f, 3.5f));
+        Instantiate(tanghuruGun3, tg2Pos, Quaternion.identity);
+
+        yield return new WaitForSeconds(1.9f);
+
+        tg1Pos = new Vector2(-7, Random.Range(-3.5f, 3.5f));
+        Instantiate(tanghuruGun1, tg1Pos, Quaternion.identity);
+        yield return new WaitForSeconds(0.3f);
+        tg1Pos = new Vector2(7, Random.Range(-3.5f, 3.5f));
+        Instantiate(tanghuruGun2, tg2Pos, Quaternion.identity);
+
+
+
+
+        yield break;
+    }
+
+    private IEnumerator SlickBackPattern()
+    {
+        
 
         yield break;
     }
