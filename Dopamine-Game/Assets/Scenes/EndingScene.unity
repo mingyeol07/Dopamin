@@ -2157,7 +2157,7 @@ MonoBehaviour:
   scoreText: {fileID: 736431957}
   endingText: {fileID: 435129566}
   lowerEndingText: {fileID: 607350642}
-  score: 70
+  score: 0
 --- !u!4 &2104565976
 Transform:
   m_ObjectHideFlags: 0

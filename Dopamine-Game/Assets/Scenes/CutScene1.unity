@@ -498,7 +498,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -669,8 +669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actingText:
   - 
-  - "\uC544\uB4E4 \uC2DC\uD5D8 \uC798 \uBCFC \uC218 \uC788\uC9C0?"
-  - "\uC5C4\uB9C8\uB294 \uC544\uB4E4 \uBBFF\uB294\uB2E4~?"
+  - "\uC2DC\uD5D8 \uC798 \uBCFC \uC218 \uC788\uC9C0?"
+  - "\uC5C4\uB9C8\uB294 \uB108 \uBBFF\uB294\uB2E4~?"
   - "\uB124 \uC5C4\uB9C8"
   - "\uAC71\uC815\uD558\uC9C0 \uB9C8\uC138\uC694"
   actingNumber: 0

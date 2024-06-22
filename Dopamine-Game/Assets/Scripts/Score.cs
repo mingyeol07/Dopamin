@@ -45,7 +45,7 @@ public class Score : MonoBehaviour
             else if (score <= 99)
             {
 
-                endingText.SetText("잘했어");
+                endingText.SetText("잘했어.");
                 lowerEndingText.SetText("휴 다행이다..");
             }
             else
