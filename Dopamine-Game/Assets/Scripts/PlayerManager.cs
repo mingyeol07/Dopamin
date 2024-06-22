@@ -14,10 +14,9 @@ public class PlayerManager : MonoBehaviour
     [Header("GameClear")]
     [SerializeField] private GameObject pnl_clear;
 
-    [SerializeField] private GameObject[] redBoxes;
-    [SerializeField] private GameObject[] greenBoxes;
-    [SerializeField] private int redBoxInt;
-    [SerializeField] private int greenBoxInt;
+    [SerializeField] private GameObject[] hpObjects;
+    [SerializeField] private int maxHp;
+    private int curHp;
 
 
     [Header("Timer")]
@@ -29,73 +28,54 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float timerSpeed;
     [SerializeField] private TMP_Text focusTime;
     [SerializeField] private TMP_Text dopamineTime;
-    private float blueTime;
-    private float yellowTime;
-    private bool isDamaged;
-    private bool isTimeOver;
+    [SerializeField] private bool isTimeOver;
+    private TMP_Text isTime;
 
     private Image gaugeImage;
 
     private void Awake()
     {
         Instance = this;
-        redBoxInt = 0;
-        greenBoxInt = 0;
+        maxHp = hpObjects.Length;
+        curHp = maxHp;
     }
 
     private void Start()
     {
+       
         SetYellowTimer();
     }
 
     private void Update()
     {
-        gaugeImage.fillAmount = curTime / maxTime;
+      //  isTime.text = curTime.ToString("n2");
+
+        //lgaugeImage.fillAmount = curTime / maxTime;
 
         if (curTime < maxTime)
         {
             curTime += Time.deltaTime * timerSpeed;
-            if (isDamaged)
-            {
-                blueTime += Time.deltaTime * timerSpeed; // curTime 대신 Time.deltaTime * timerSpeed 사용
-            }
-            else
-            {
-                yellowTime += Time.deltaTime * timerSpeed; // curTime 대신 Time.deltaTime * timerSpeed 사용
-            }
         }
         else if (curTime >= maxTime && !isTimeOver)
         {
-
+            isTimeOver = true;
             GameClear();
         }
     }
 
-    public void SetRedBox() {
-        redBoxes[redBoxInt].SetActive(true);
-
-        redBoxInt++;
-        if (redBoxInt == redBoxes.Length)
-        {
-            ClearRedBox();
-            redBoxInt = 0;
-        }
+    public void TimeUp()
+    {
+        curTime += 20;
     }
 
-    public void SetGreenBox()
-    {
-        greenBoxes[greenBoxInt].SetActive(true);
+    public void HpDown() {
+        hpObjects[curHp].SetActive(false);
 
-        greenBoxInt++;
-        if (greenBoxInt == greenBoxes.Length )
+        curHp--;
+        if (curHp == 0)
         {
-            greenBoxInt = 0;
+            GameOver();
         }
-    }
-    
-    private void ClearRedBox()
-    {
-        curTime += 5;
     }
 
     public void PlayerDamaged()
@@ -114,16 +94,18 @@ public class PlayerManager : MonoBehaviour
     {
         pnl_clear.SetActive(true);
         isGameClear = true;
-        focusTime.text = ((yellowTime / maxTime) * 100).ToString("F2") ; // 소수점 둘째 자리까지 표시
-        dopamineTime.text = ((blueTime / maxTime) * 100).ToString("F2");
+
         canvas.transform.position = new Vector2(-2, 0);
         canvas.transform.localScale = new Vector2(2, 2);
     }
 
+    private void GameOver()
+    {
+
+    }
+
     private void SetYellowTimer()
     {
-        isDamaged = false;
-
         GameObject timer = Instantiate(yellowTimerPrefab, canvas.transform);
         timer.transform.SetAsFirstSibling();
         gaugeImage = timer.GetComponent<Image>();
@@ -132,8 +114,6 @@ public class PlayerManager : MonoBehaviour
 
     private void SetBlueTimer()
     {
-        isDamaged = true;
-
         GameObject timer = Instantiate(blueTimerPrefab, canvas.transform);
         timer.transform.SetAsFirstSibling();
         gaugeImage = timer.GetComponent<Image>();

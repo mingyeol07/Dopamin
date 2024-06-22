@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class InfinitePlayer : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     private Rigidbody2D rigid;
     private Animator animator;
+
+    private bool unbeatable;
 
     private void Awake()
     {
@@ -17,7 +19,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerManager.Instance.isGameClear) Move();
+        if (!InfiniteManager.Instance.isGameClear) Move();
         else rigid.velocity = Vector2.zero;
     }
 
@@ -33,21 +35,22 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet") && !unbeatable)
         {
             Damaged();
             DownFocus();
         }
 
-        if(collision.gameObject.CompareTag("TimeUpItem"))
+        if (collision.gameObject.CompareTag("TimeUpItem"))
         {
-            PlayerManager.Instance.TimeUp();
+            InfiniteManager.Instance.PlusTimeItem();
+            animator.SetTrigger("GetItem");
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet") && !unbeatable)
         {
             Damaged();
             DownFocus();
@@ -56,12 +59,21 @@ public class Player : MonoBehaviour
 
     private void DownFocus()
     {
-        PlayerManager.Instance.PlayerDamaged();
+        InfiniteManager.Instance.HpDown();
     }
 
     private void Damaged()
     {
         animator.SetTrigger("Damaged");
         Camera.main.GetComponent<CameraShake>().StartShake(0.3f);
+        StartCoroutine(Unbeatable());
+    }
+
+    IEnumerator Unbeatable()
+    {
+        unbeatable = true;
+        yield return new WaitForSeconds(1f);
+        unbeatable = false;
     }
 }
+
