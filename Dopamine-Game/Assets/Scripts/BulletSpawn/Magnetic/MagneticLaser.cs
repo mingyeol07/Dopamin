@@ -20,7 +20,16 @@ public class MagneticLaser : MonoBehaviour
         laserIndicator.SetActive(false);
         laser.SetActive(true);
 
-        yield return new WaitForSeconds(0.25f);
+        while (laser.transform.localScale.x < 0.75f)
+        {
+            laser.transform.localScale = new Vector3(laser.transform.localScale.x + Time.deltaTime * 2.5f, 50, 1);
+            yield return null;
+        }
+        while (laser.transform.localScale.x > 0)
+        {
+            laser.transform.localScale = new Vector3(laser.transform.localScale.x - Time.deltaTime * 3.5f, 50, 1);
+            yield return null;
+        }
 
         Destroy(gameObject);
 
