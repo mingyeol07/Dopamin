@@ -31,7 +31,7 @@ public class BulletSpawner : MonoBehaviour
     private void Start()
     {
         //StartCoroutine(PlayPattern(true));
-        StartCoroutine(MagneticPattern());
+        StartCoroutine(PedroPattern());
     }
 
     private IEnumerator PlayPattern(bool first)
@@ -149,6 +149,12 @@ public class BulletSpawner : MonoBehaviour
             pedroBg.transform.localScale = new Vector2(pedroBg.transform.localScale.x - Time.deltaTime * 4, pedroBg.transform.localScale.y - Time.deltaTime * 4);
             yield return null;
         }
+
+        yield return new WaitForSeconds(1.5f);
+
+        pedroBg.GetComponent<PedroBg>().Move();
+
+        pedroRacoon.transform.parent = pedroBg.transform;
 
         yield return new WaitForSeconds(15);
         StartCoroutine(PlayPattern(false));
