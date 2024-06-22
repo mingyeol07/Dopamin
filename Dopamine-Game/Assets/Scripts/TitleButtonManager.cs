@@ -33,7 +33,7 @@ public class TitleButtonManager : MonoBehaviour
 
     private void PlayStoryMode()
     {
-        SceneManager.LoadScene("StoryMode");
+        SceneManager.LoadScene("Opening");
     }
 
     private void PlayInfinite()

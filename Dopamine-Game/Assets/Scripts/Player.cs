@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     {
         if (dashIcon.fillAmount < 1) dashIcon.fillAmount += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashIcon.fillAmount >= 1)
+        if (Input.GetKeyDown(KeyCode.Space) && dashIcon.fillAmount >= 1)
         {
             dashIcon.fillAmount = 0;
             StartCoroutine(Dashing());

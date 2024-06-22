@@ -1448,11 +1448,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pnl_clear: {fileID: 1704015635}
-  btn_clear: {fileID: 0}
+  btn_clear: {fileID: 1437955647}
   blueTimerPrefab: {fileID: 8261570238432335838, guid: ad1ca909b6fbc8b43a9ec207afbba2e4, type: 3}
   yellowTimerPrefab: {fileID: 8261570238432335838, guid: 4b383dc577ce6ad46a984e5ff84a7703, type: 3}
   canvas: {fileID: 2008245599}
-  maxTime: 60
+  maxTime: 10
   curTime: 0
   timerSpeed: 0
   txt_focusTime: {fileID: 127654445}
@@ -1623,7 +1623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1704015636
 RectTransform:
   m_ObjectHideFlags: 0

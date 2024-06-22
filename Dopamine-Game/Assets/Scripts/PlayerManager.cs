@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
@@ -34,6 +35,8 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
         btn_clear.onClick.AddListener(() => PlayCutScene());
     }
 
@@ -44,13 +47,19 @@ public class PlayerManager : MonoBehaviour
 
     private void PlayCutScene()
     {
-
+        SceneManager.LoadScene("Ending");
+        int score = (int)((focusTime / maxTime) * 100);
+        Debug.Log(score);
+        Score.score = score;
     }
 
     private void Update()
     {
-        if (isFocusing) focusTime += Time.deltaTime * timerSpeed;
-        else dopamineTime += Time.deltaTime * timerSpeed;
+        if(!isGameClear)
+        {
+            if (isFocusing) focusTime += Time.deltaTime * timerSpeed;
+            else dopamineTime += Time.deltaTime * timerSpeed;
+        }
 
         gaugeImage.fillAmount = curTime / maxTime;
 
