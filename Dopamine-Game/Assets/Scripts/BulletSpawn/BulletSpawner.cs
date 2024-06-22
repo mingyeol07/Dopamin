@@ -24,8 +24,13 @@ public class BulletSpawner : MonoBehaviour
     public GameObject tanghuruGun3;
     public AudioClip tanghuruSound;
 
+    [Header("Slick Back")]
+    public GameObject slickBack;
+    public AudioClip slickBackSound;
+
     private void Start()
     {
+        StartCoroutine(SlickBackPattern());
     }
 
     private void PlayPattern(bool first)
@@ -157,7 +162,12 @@ public class BulletSpawner : MonoBehaviour
 
     private IEnumerator SlickBackPattern()
     {
-        
+        SoundManager.Instance.PlaySFX(slickBackSound);
+
+        yield return new WaitForSeconds(4.5f);
+
+        Instantiate(slickBack, new Vector2(10, Random.Range(-3f, 3f)), Quaternion.identity);
+        Instantiate(slickBack, new Vector2(-10, Random.Range(-3f, 3f)), Quaternion.identity);
 
         yield break;
     }
