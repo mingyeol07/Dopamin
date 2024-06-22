@@ -37,20 +37,19 @@ public class BulletSpawner : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(PlayPattern(true));
-        StartCoroutine(AK47Pattern());
+        StartCoroutine(PlayPattern(true));
     }
 
     private IEnumerator PlayPattern(bool first)
     {
         int index = 0;
-        if (first) index = Random.Range(0, 4);
+        if (first) index = Random.Range(0, 5);
         else
         {
-            index = Random.Range(0, 4);
+            index = Random.Range(0, 5);
             while (index == lastPlayedPattern)
             {
-                index = Random.Range(0, 4);
+                index = Random.Range(0, 5);
             }
         }
 
@@ -67,6 +66,9 @@ public class BulletSpawner : MonoBehaviour
                 break;
             case 3:
                 StartCoroutine(SlickBackPattern());
+                break;
+            case 4:
+                StartCoroutine(AK47Pattern());
                 break;
         }
 
@@ -240,6 +242,9 @@ public class BulletSpawner : MonoBehaviour
 
         t1.isStop = false;
         t2.isStop = false;
+
+        yield return new WaitForSeconds(4.5f);
+        StartCoroutine(PlayPattern(false));
 
         yield break;
     }
