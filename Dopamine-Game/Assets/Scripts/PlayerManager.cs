@@ -72,23 +72,23 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void SetRedBox() {
-        redBoxes[redBoxInt].SetActive(false);
+        redBoxes[redBoxInt].SetActive(true);
 
         redBoxInt++;
         if (redBoxInt == redBoxes.Length)
         {
+            ClearRedBox();
             redBoxInt = 0;
         }
     }
 
     public void SetGreenBox()
     {
-        greenBoxes[greenBoxInt].SetActive(false);
+        greenBoxes[greenBoxInt].SetActive(true);
 
         greenBoxInt++;
         if (greenBoxInt == greenBoxes.Length )
         {
-            ClearRedBox();
             greenBoxInt = 0;
         }
     }

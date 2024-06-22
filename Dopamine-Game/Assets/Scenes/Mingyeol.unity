@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 116653108}
   - component: {fileID: 116653109}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 116653103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.01, y: -0.98, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1005,7 +1005,7 @@ GameObject:
   - component: {fileID: 531919729}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Bullet
+  m_TagString: Green
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1442,9 +1442,9 @@ MonoBehaviour:
   - {fileID: 170273100}
   - {fileID: 516421166}
   greenBoxes:
-  - {fileID: 129317514}
-  - {fileID: 613808171}
   - {fileID: 24773476}
+  - {fileID: 613808171}
+  - {fileID: 129317514}
   redBoxInt: 0
   greenBoxInt: 0
   blueTimerPrefab: {fileID: 8463933869272408707, guid: dab89cc7c872bfb4b9d6237be283a7ac, type: 3}
