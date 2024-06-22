@@ -22,12 +22,12 @@ public class MagneticLaser : MonoBehaviour
 
         while (laser.transform.localScale.x < 0.75f)
         {
-            laser.transform.localScale = new Vector3(laser.transform.localScale.x + Time.deltaTime * 2.5f, 50, 1);
+            laser.transform.localScale = new Vector3(laser.transform.localScale.x + Time.deltaTime * 3.5f, 50, 1);
             yield return null;
         }
         while (laser.transform.localScale.x > 0)
         {
-            laser.transform.localScale = new Vector3(laser.transform.localScale.x - Time.deltaTime * 3.5f, 50, 1);
+            laser.transform.localScale = new Vector3(laser.transform.localScale.x - Time.deltaTime * 4.5f, 50, 1);
             yield return null;
         }
 

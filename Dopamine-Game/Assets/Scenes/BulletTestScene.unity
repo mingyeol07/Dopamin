@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fca08d173230a4fadb937089900a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magneticBg: {fileID: 0}
+  magneticHorseking: {fileID: 5022338363391594379, guid: acc4cf60c1821b84ba1b210b0f396980, type: 3}
   magneticSound: {fileID: 8300000, guid: 3c456fd692489f040989553b36399f5c, type: 3}
   magneticLaser: {fileID: 3743488166948069398, guid: 2d4cb01f927d750459b36f25a9db9ccb, type: 3}
   magneticLaserCool: 0.225

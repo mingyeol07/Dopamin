@@ -7,7 +7,7 @@ public class BulletSpawner : MonoBehaviour
     private int lastPlayedPattern;
 
     [Header("Magnetic")]
-    public GameObject magneticBg;
+    public GameObject magneticHorseking;
     public AudioClip magneticSound;
     public GameObject magneticLaser;
     public float magneticLaserCool;
@@ -30,7 +30,8 @@ public class BulletSpawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(PlayPattern(true));
+        //StartCoroutine(PlayPattern(true));
+        StartCoroutine(MagneticPattern());
     }
 
     private IEnumerator PlayPattern(bool first)
@@ -83,7 +84,8 @@ public class BulletSpawner : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.2f);
-        Coroutine c = StartCoroutine(MagneticPlayer());
+        Destroy(Instantiate(magneticHorseking, new Vector2(7, 0), Quaternion.identity), 1.25f);
+        Coroutine c = StartCoroutine(MagneticPlayer(new Vector2(7,0)));
         yield return new WaitForSeconds(1.25f);
         StopCoroutine(c);
 
@@ -96,7 +98,10 @@ public class BulletSpawner : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.2f);
-        Coroutine c2 = StartCoroutine(MagneticPlayer());
+        GameObject g = Instantiate(magneticHorseking, new Vector2(-7, 0), Quaternion.identity);
+        g.transform.localEulerAngles = new Vector3(0, -180, 0);
+        Destroy(g, 1.5f);
+        Coroutine c2 = StartCoroutine(MagneticPlayer(new Vector2(-7, 0)));
         yield return new WaitForSeconds(1.5f);
         StopCoroutine(c2);
 
@@ -109,7 +114,8 @@ public class BulletSpawner : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.2f);
-        Coroutine c3 = StartCoroutine(MagneticPlayer());
+        Destroy(Instantiate(magneticHorseking, new Vector2(7, 0), Quaternion.identity), 0.5f);
+        Coroutine c3 = StartCoroutine(MagneticPlayer(new Vector2(7, 0)));
         yield return new WaitForSeconds(0.5f);
         StopCoroutine(c3);
 
@@ -118,12 +124,12 @@ public class BulletSpawner : MonoBehaviour
 
         yield break;
     }
-    private IEnumerator MagneticPlayer()
+    private IEnumerator MagneticPlayer(Vector2 pos)
     {
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         while (true)
         {
-            player.Translate(Vector2.zero -  (Vector2)player.transform.position * Time.deltaTime);
+            player.Translate((pos -  (Vector2)player.transform.position).normalized * Time.deltaTime * 3);
             yield return null;
         }
     }
