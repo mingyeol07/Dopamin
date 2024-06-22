@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3294298564652750833}
   - component: {fileID: 906300406808247538}
+  - component: {fileID: 6062727780001454948}
   m_Layer: 0
   m_Name: Tanghuru1
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +48,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tanghuruAl: {fileID: 2996059425001105105, guid: 4e7b79833f7aaf140b2924260c2f92f9, type: 3}
   speed: 6
+--- !u!70 &6062727780001454948
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506412822477758141}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.4}
+  m_Size: {x: 0.84, y: 2}
+  m_Direction: 0
 --- !u!1 &2281030457207819847
 GameObject:
   m_ObjectHideFlags: 0
