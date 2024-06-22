@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
     public TextMeshPro scoreText;
     public TextMeshPro endingText;
     public TextMeshPro lowerEndingText;
-    public int score;
+    public static int score;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Button btn_returnMain;
+    [SerializeField] private Button btn_retry;
+
+    private void Awake()
     {
-        
+        //btn_retry.onClick.AddListener(() => SceneManager.LoadScene("StoryMode"));
+        //btn_returnMain.onClick.AddListener(() => SceneManager.LoadScene("Title"));
     }
 
     // Update is called once per frame
