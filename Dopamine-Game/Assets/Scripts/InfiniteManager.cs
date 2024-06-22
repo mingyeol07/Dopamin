@@ -1,5 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class InfiniteManager : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class InfiniteManager : MonoBehaviour
     [SerializeField] private int maxHp;
     private int curHp;
 
+    [SerializeField] private TMP_Text txt_timer;
+    private float minute;
+    private float secend;
+
     private void Awake()
     {
         Instance = this;
@@ -31,6 +37,11 @@ public class InfiniteManager : MonoBehaviour
 
     private void Update()
     {
+        secend += Time.deltaTime;
+        TimeSpan timeSpan = TimeSpan.FromSeconds(secend);
+        txt_timer.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+
+
         curTime -= Time.deltaTime;
         timer.fillAmount = curTime / maxTime;
     }
