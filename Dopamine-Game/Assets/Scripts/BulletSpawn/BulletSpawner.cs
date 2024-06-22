@@ -30,15 +30,20 @@ public class BulletSpawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SlickBackPattern());
+        StartCoroutine(PlayPattern(true));
     }
 
-    private void PlayPattern(bool first)
+    private IEnumerator PlayPattern(bool first)
     {
         int index = 0;
-        while (index != lastPlayedPattern)
+        if (first) index = Random.Range(0, 4);
+        else
         {
-            index = Random.Range(0, 1);
+            index = Random.Range(0, 4);
+            while (index == lastPlayedPattern)
+            {
+                index = Random.Range(0, 4);
+            }
         }
 
         switch (index)
@@ -46,7 +51,20 @@ public class BulletSpawner : MonoBehaviour
             case 0:
                 StartCoroutine(MagneticPattern());
                 break;
+            case 1:
+                StartCoroutine(PedroPattern());
+                break;
+            case 2:
+                StartCoroutine(TanghuruPattern());
+                break;
+            case 3:
+                StartCoroutine(SlickBackPattern());
+                break;
         }
+
+        lastPlayedPattern = index;
+
+        yield break;
     }
 
     private IEnumerator MagneticPattern()
@@ -58,7 +76,7 @@ public class BulletSpawner : MonoBehaviour
 
         for (int i=0; i<8; i++)
         {
-            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position;
             GameObject laser = Instantiate(magneticLaser, spawnPos, Quaternion.identity);
             laser.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
             yield return new WaitForSeconds(magneticLaserCool);
@@ -71,7 +89,7 @@ public class BulletSpawner : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position;
             GameObject laser = Instantiate(magneticLaser, spawnPos, Quaternion.identity);
             laser.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
             yield return new WaitForSeconds(magneticLaserCool);
@@ -84,7 +102,7 @@ public class BulletSpawner : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            Vector2 spawnPos = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position;
             GameObject laser = Instantiate(magneticLaser, spawnPos, Quaternion.identity);
             laser.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
             yield return new WaitForSeconds(slowMagneticLaserCool);
@@ -94,6 +112,9 @@ public class BulletSpawner : MonoBehaviour
         Coroutine c3 = StartCoroutine(MagneticPlayer());
         yield return new WaitForSeconds(0.5f);
         StopCoroutine(c3);
+
+        yield return new WaitForSeconds(2.5f);
+        StartCoroutine(PlayPattern(false));
 
         yield break;
     }
@@ -122,6 +143,9 @@ public class BulletSpawner : MonoBehaviour
             pedroBg.transform.localScale = new Vector2(pedroBg.transform.localScale.x - Time.deltaTime * 4, pedroBg.transform.localScale.y - Time.deltaTime * 4);
             yield return null;
         }
+
+        yield return new WaitForSeconds(15);
+        StartCoroutine(PlayPattern(false));
 
         yield break;
     }
@@ -154,8 +178,8 @@ public class BulletSpawner : MonoBehaviour
         tg1Pos = new Vector2(7, Random.Range(-3.5f, 3.5f));
         Instantiate(tanghuruGun2, tg2Pos, Quaternion.identity);
 
-
-
+        yield return new WaitForSeconds(5.5f);
+        StartCoroutine(PlayPattern(false));
 
         yield break;
     }
@@ -168,6 +192,9 @@ public class BulletSpawner : MonoBehaviour
 
         Instantiate(slickBack, new Vector2(10, Random.Range(-3f, 3f)), Quaternion.identity);
         Instantiate(slickBack, new Vector2(-10, Random.Range(-3f, 3f)), Quaternion.identity);
+
+        yield return new WaitForSeconds(7.5f);
+        StartCoroutine(PlayPattern(false));
 
         yield break;
     }

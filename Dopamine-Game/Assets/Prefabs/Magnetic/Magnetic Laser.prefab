@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserIndicator: {fileID: 3016650704839483991}
   laser: {fileID: 9149490759432299413}
-  laserActiveTime: 1.25
+  laserActiveTime: 2
 --- !u!1 &9149490759432299413
 GameObject:
   m_ObjectHideFlags: 0
