@@ -34,7 +34,7 @@ public class BulletSpawner : MonoBehaviour
     private IEnumerator MagneticPattern()
     {
         Instantiate(magneticBg, Vector3.zero, Quaternion.identity);
-
+        
 
 
         yield break;
