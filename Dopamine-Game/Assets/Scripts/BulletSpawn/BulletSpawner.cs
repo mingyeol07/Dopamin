@@ -28,10 +28,17 @@ public class BulletSpawner : MonoBehaviour
     public GameObject slickBack;
     public AudioClip slickBackSound;
 
+    [Header("AK47")]
+    public GameObject AK47;
+    public AudioClip AK47Sound;
+    public GameObject grandma;
+    public GameObject tomb;
+    public GameObject tomb2;
+
     private void Start()
     {
         //StartCoroutine(PlayPattern(true));
-        StartCoroutine(MagneticPattern());
+        StartCoroutine(AK47Pattern());
     }
 
     private IEnumerator PlayPattern(bool first)
@@ -150,6 +157,12 @@ public class BulletSpawner : MonoBehaviour
             yield return null;
         }
 
+        yield return new WaitForSeconds(1.5f);
+
+        pedroBg.GetComponent<PedroBg>().Move();
+
+        pedroRacoon.transform.parent = pedroBg.transform;
+
         yield return new WaitForSeconds(15);
         StartCoroutine(PlayPattern(false));
 
@@ -201,6 +214,32 @@ public class BulletSpawner : MonoBehaviour
 
         yield return new WaitForSeconds(7.5f);
         StartCoroutine(PlayPattern(false));
+
+        yield break;
+    }
+
+    private IEnumerator AK47Pattern()
+    {
+        SoundManager.Instance.PlaySFX(AK47Sound);
+
+        yield return new WaitForSeconds(1);
+
+        Instantiate(AK47, new Vector2(12, 0), Quaternion.identity);
+
+        yield return new WaitForSeconds(2f);
+
+        Instantiate(grandma, new Vector2(-15, 0), Quaternion.identity);
+
+        yield return new WaitForSeconds(4.15f);
+
+        Tomb t1 = Instantiate(tomb, new Vector2(-6, -7), Quaternion.identity).GetComponent<Tomb>();
+        yield return new WaitForSeconds(0.3f);
+        Tomb t2 = Instantiate(tomb2, new Vector2(6, -7), Quaternion.identity).GetComponent<Tomb>();
+
+        yield return new WaitForSeconds(1f);
+
+        t1.isStop = false;
+        t2.isStop = false;
 
         yield break;
     }

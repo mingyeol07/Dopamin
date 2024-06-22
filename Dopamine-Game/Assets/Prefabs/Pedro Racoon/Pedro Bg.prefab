@@ -626,6 +626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4387570404118752874}
   - component: {fileID: 7527454409560463137}
+  - component: {fileID: 907909482061922718}
   m_Layer: 0
   m_Name: Pedro Bg
   m_TagString: Untagged
@@ -708,3 +709,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &907909482061922718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573538957387621299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53c2e668ca1433489b4a3e347337331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  targetPos: {x: 0, y: 0}
+  pedroSound: {fileID: 8300000, guid: 8bd9c0b9e781a0e45bed969faec1a62f, type: 3}
