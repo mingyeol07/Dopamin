@@ -6,7 +6,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    [SerializeField] private Transform cam;
     private Rigidbody2D rigid;
     private Animator animator;
 
@@ -18,7 +17,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (!PlayerManager.Instance.isGameClear) Move();
+        else rigid.velocity = Vector2.zero;
     }
 
     private void Move()
@@ -38,6 +38,15 @@ public class Player : MonoBehaviour
             Damaged();
             DownFocus();
         }
+        else if(collision.gameObject.CompareTag("Red"))
+        {
+            PlayerManager.Instance.SetRedBox();
+        }
+        else if(collision.gameObject.CompareTag("Green"))
+        {
+            PlayerManager.Instance.SetGreenBox();
+        }
+        
     }
 
     private void DownFocus()
@@ -48,6 +57,6 @@ public class Player : MonoBehaviour
     private void Damaged()
     {
         animator.SetTrigger("Damaged");
-        cam.GetComponent<CameraShake>().StartShake(0.3f);
+        Camera.main.GetComponent<CameraShake>().StartShake(0.3f);
     }
 }

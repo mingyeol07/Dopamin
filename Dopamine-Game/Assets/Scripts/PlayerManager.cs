@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,10 +9,17 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
-    [Header("Life")]
-    [SerializeField] private GameObject[] lifeObjects;
-    private int playerLife;
-    
+    public bool isGameClear { get; private set; }
+
+    [Header("GameClear")]
+    [SerializeField] private GameObject pnl_clear;
+
+    [SerializeField] private GameObject[] redBoxes;
+    [SerializeField] private GameObject[] greenBoxes;
+    [SerializeField] private int redBoxInt;
+    [SerializeField] private int greenBoxInt;
+
+
     [Header("Timer")]
     [SerializeField] private GameObject blueTimerPrefab;
     [SerializeField] private GameObject yellowTimerPrefab;
@@ -19,46 +27,80 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int maxTime;
     [SerializeField] private float curTime;
     [SerializeField] private float timerSpeed;
-    private Image mainTimer;
+    [SerializeField] private TMP_Text focusTime;
+    [SerializeField] private TMP_Text dopamineTime;
+    private float blueTime;
+    private float yellowTime;
+    private bool isDamaged;
+    private bool isTimeOver;
+
+    private Image gaugeImage;
 
     private void Awake()
     {
         Instance = this;
+        redBoxInt = 0;
+        greenBoxInt = 0;
     }
 
     private void Start()
     {
-        playerLife = lifeObjects.Length;
         SetYellowTimer();
     }
 
     private void Update()
     {
-        mainTimer.fillAmount = curTime / maxTime;
+        gaugeImage.fillAmount = curTime / maxTime;
 
         if (curTime < maxTime)
         {
             curTime += Time.deltaTime * timerSpeed;
+            if (isDamaged)
+            {
+                blueTime += Time.deltaTime * timerSpeed; // curTime 대신 Time.deltaTime * timerSpeed 사용
+            }
+            else
+            {
+                yellowTime += Time.deltaTime * timerSpeed; // curTime 대신 Time.deltaTime * timerSpeed 사용
+            }
         }
+        else if (curTime >= maxTime && !isTimeOver)
+        {
+
+            GameClear();
+        }
+    }
+
+    public void SetRedBox() {
+        redBoxes[redBoxInt].SetActive(false);
+
+        redBoxInt++;
+        if (redBoxInt == redBoxes.Length)
+        {
+            redBoxInt = 0;
+        }
+    }
+
+    public void SetGreenBox()
+    {
+        greenBoxes[greenBoxInt].SetActive(false);
+
+        greenBoxInt++;
+        if (greenBoxInt == greenBoxes.Length )
+        {
+            ClearRedBox();
+            greenBoxInt = 0;
+        }
+    }
+    
+    private void ClearRedBox()
+    {
+        curTime += 5;
     }
 
     public void PlayerDamaged()
     {
-        LifeDown();
         StartCoroutine(Damaged());
-    }
-
-    private void LifeDown()
-    {
-        playerLife--;
-        if(playerLife < 0 )
-        {
-
-        }
-        else
-        {
-            lifeObjects[playerLife].SetActive(false);
-        }
     }
 
     private IEnumerator Damaged()
@@ -68,19 +110,33 @@ public class PlayerManager : MonoBehaviour
         SetYellowTimer();
     }
 
+    private void GameClear()
+    {
+        pnl_clear.SetActive(true);
+        isGameClear = true;
+        focusTime.text = ((yellowTime / maxTime) * 100).ToString("F2") ; // 소수점 둘째 자리까지 표시
+        dopamineTime.text = ((blueTime / maxTime) * 100).ToString("F2");
+        canvas.transform.position = new Vector2(-2, 0);
+        canvas.transform.localScale = new Vector2(2, 2);
+    }
+
     private void SetYellowTimer()
     {
+        isDamaged = false;
+
         GameObject timer = Instantiate(yellowTimerPrefab, canvas.transform);
         timer.transform.SetAsFirstSibling();
-        mainTimer = timer.GetComponent<Image>();
+        gaugeImage = timer.GetComponent<Image>();
         timerSpeed = 1;
     }
 
     private void SetBlueTimer()
     {
+        isDamaged = true;
+
         GameObject timer = Instantiate(blueTimerPrefab, canvas.transform);
         timer.transform.SetAsFirstSibling();
-        mainTimer = timer.GetComponent<Image>();
-        timerSpeed = 5;
+        gaugeImage = timer.GetComponent<Image>();
+        timerSpeed = 15;
     }
 }
