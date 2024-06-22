@@ -13,8 +13,14 @@ public class BulletSpawner : MonoBehaviour
     public float magneticLaserCool;
     public float slowMagneticLaserCool;
 
-    private void Awake()
+    [Header("Pedro")]
+    public GameObject pedroBg;
+    public GameObject pedroRacoon;
+    public AudioClip pedroSound;
+
+    private void Start()
     {
+        StartCoroutine(PedroPattern());
     }
 
     private void PlayPattern(bool first)
@@ -89,5 +95,24 @@ public class BulletSpawner : MonoBehaviour
             player.Translate(Vector2.zero -  (Vector2)player.transform.position * Time.deltaTime);
             yield return null;
         }
+    }
+
+    private IEnumerator PedroPattern()
+    {
+        GameObject pedroBg = Instantiate(this.pedroBg, Vector3.zero, Quaternion.identity);
+        GameObject pedroRacoon = Instantiate(this.pedroRacoon, new Vector2(0, -7), Quaternion.identity);
+
+        Destroy(pedroBg, pedroSound.length);
+        Destroy(pedroRacoon, pedroSound.length);
+
+        SoundManager.Instance.PlaySFX(pedroSound);
+
+        while (pedroBg.transform.localScale.x > 6)
+        {
+            pedroBg.transform.localScale = new Vector2(pedroBg.transform.localScale.x - Time.deltaTime * 4, pedroBg.transform.localScale.y - Time.deltaTime * 4);
+            yield return null;
+        }
+
+        yield break;
     }
 }
